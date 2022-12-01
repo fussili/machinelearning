@@ -1,0 +1,45 @@
+"""Given a string s, find the length of the longest 
+substring
+ without repeating characters."""
+
+
+
+
+class Solution(object):
+    def lengthOfLongestSubstring(self, c):
+        """
+        :type s: str
+        :rtype: int
+        """
+        subs=[]
+        ch=list(c)
+        len_subs=[]
+        count=0
+        for i in c:
+            if i not in subs:
+                subs.append(i)
+                count+=1
+            elif i in subs and i!=subs[-1]:
+                len_subs.append(count)
+                subs_len=len(subs)
+                l=[]
+                for j in range(len(subs)-1,0,-1):   
+                    if subs[j]==i:       
+                        break
+                    else:
+                        l.append(subs[j])
+                l.reverse()
+                subs=l
+                subs.append(i)
+                count=len(subs)
+            else:
+                len_subs.append(count)
+                ch=ch[c.index(i)+1:]
+                subs=[]
+                subs.append(i)
+                count=1
+        len_subs.append(count)
+        if len(len_subs)==0:
+            return 0
+        else:
+            return max(len_subs)
